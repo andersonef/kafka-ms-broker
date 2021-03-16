@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+    
+    kafka-ms-broker:
+        build:
+            context: .
+            dockerfile: docker/api/Dockerfile
+        ports: 
+            - 8082:8080
+        volumes:
+            - .:/kafka-ms
+        depends_on: 
+            - kafka-ms-broker-db
+        networks:
+            - kafka_ms
+
+    kafka-ms-broker-db:
+        image: postgres
+        ports:
+            - 5432:5432
+        environment: 
+            POSTGRES_PASSWORD: test
+            POSTGRES_USER: test
+            POSTGRES_DB: Broker
+        networks:
+            - kafka_ms
+
+    adminer:
+        image: adminer
+        ports:
+            - 8080:8080
+        networks:
+            - kafka_ms
+
+networks: 
+    kafka_ms:
+        name: kafka_ms

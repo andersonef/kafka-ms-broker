@@ -1,0 +1,22 @@
+{
+    "name": "anderson/kafka-ms-broker",
+    "description": "Broker microservice.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anderson N. Silva",
+            "email": "anderson.nuneseth@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "files": [
+            "config/app.php"
+        ],
+        "classmap": [
+            "config/",
+            "app/"
+        ]
+    }
+}
