@@ -25,3 +25,14 @@ $ chmod +x ./scripts/up.sh
 $ ./scripts/up.sh
 ```
 
+# Endpoints
+
+## POST /request
+
+This endpoint will create a new request inside database and send it to kafka's topic-a
+
+## GET /request
+### Params:
+ - token: request token
+
+ Will retrieve a request by its token

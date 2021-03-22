@@ -26,6 +26,6 @@ trait RouteDispatcherTrait
         $method = $route['method'];
         $response = json_encode($controller->$method());
         
-        echo $response;
+        return $response;
     }
 }

@@ -57,15 +57,13 @@ class PostgresConnection extends DatabaseConnectionAbstract
         
         $statement = $pdo->prepare($sql);
 
-        foreach ($params as $property => $value) {
-            $statement->bindColumn(':' . $property, $value);
-        }
-        
-        $statement->execute();
+        $statement->execute($params);
 
         $queryType = explode(' ', $sql)[0];
         if (strtoupper($queryType) == 'INSERT') {
             $tableName = explode(' ', $sql)[2];
+            $tableName = explode('(', $tableName)[0];
+            $tableName = trim($tableName);
             $sequencObjectName = strtolower($tableName) . '_id_seq';
 
             return $pdo->lastInsertId($sequencObjectName);
@@ -80,15 +78,16 @@ class PostgresConnection extends DatabaseConnectionAbstract
             ->connect()
             ->getConnection();
         
-        $statement = $pdo->query($sql);
+        $statement = $pdo->prepare($sql);
 
         if (!$statement) {
             throw new \Exception('Invalid query: ' . $sql);
         }
 
         foreach ($params as $property => $value) {
-            $statement->bindColumn(':' . $property, $value);
+            $statement->bindValue(':' . $property, $value);
         }
+        $statement->execute();
         $response = [];
 
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {

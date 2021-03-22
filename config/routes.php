@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RequestController;
 
 define('CONFIG_ROUTES', [
-    'GET' => [
-
+    'POST' => [
         [
-            'path' => '/teste',
-            'controller' => HomeController::class,
-            'method' => 'test'
-        ],
-
-        [
-            'path' => '/',
-            'controller' => HomeController::class,
-            'method' => 'index'
+            'path' => '/request',
+            'controller' => RequestController::class,
+            'method' => 'store'
         ]
-    ]
+    ],
+    'GET' => [
+        [
+            'path' => '/request',
+            'controller' => RequestController::class,
+            'method' => 'read'
+        ]
+    ]    
 ]);

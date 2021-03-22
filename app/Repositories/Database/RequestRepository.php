@@ -19,18 +19,28 @@ class RequestRepository extends RepositoryAbstract
     public function create(array $values): EntityAbstract
     {
         $token = uniqid();
-        $sql = "INSERT INTO broker(token, message) VALUES (:token, :message);";
+        $sql = "INSERT INTO requests(token, message) VALUES (?, ?);";
         $insertedId = $this->databaseConnection->executeSql($sql, [
-            'token' => $token,
-            'message' => $values['message'] ?? ''
+            $token,
+            $values['message'] ?? ''
         ]);
-        die($insertedId . 'akii');
 
         $request = $this->databaseConnection->query('select * from requests where id = :id', [
             'id' => $insertedId
         ]);
 
-        return new RequestEntity($request[0]);
+        return (is_null($request[0])) ? null : new RequestEntity($request[0] ?? null);
+    }
+
+    public function getByToken(string $token): ?EntityAbstract
+    {
+        $sql = 'SELECT * FROM requests where token = :token';
+        $data = $this->databaseConnection->query($sql, [
+            'token' => $token
+            ]
+        );
+
+        return (is_null($data[0])) ? null : new RequestEntity($data[0]);
     }
 
     public function update(array $values, $id): bool

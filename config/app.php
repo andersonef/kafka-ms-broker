@@ -4,9 +4,12 @@ define('CONFIG_APP', [
     'brokerServiceHost' => 'http://broker-service:8081',
     'kafkaServiceHost' => 'http://kafka:9092',
     
-    'database' => [
-        'connections' => [
-            'default' => [
+    'database' => 
+    [
+        'connections' => 
+        [
+            'default' => 
+            [
                 'host' => 'kafka-ms-broker-db',
                 'port' => 5432,
                 'user' => 'test',
@@ -14,5 +17,5 @@ define('CONFIG_APP', [
                 'db' => 'Broker',
             ]
         ]
-    ]
+    ],
 ]);

@@ -12,6 +12,7 @@ class Bootstrap
     public function dispatch(): void
     {
         $response = $this->processRoute();
+
         echo $response;
     }
 }
